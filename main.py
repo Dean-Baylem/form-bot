@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 
 # Methods
 
+
 def add_string_text(element):
     element.send_keys("テスト")
     pass
@@ -44,6 +45,23 @@ def handle_text_areas(all_textarea_elements):
         textarea.send_keys("テスト テスト テスト テスト")
 
 
+def form_filler_main(url):
+    """ Main function for the form filler Selenium program """
+    # Web Driver Setup
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_experimental_option("detach", True)
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(url)
+
+    # Gather all Inputs
+    all_inputs = driver.find_elements(By.TAG_NAME, 'input')
+    all_select_inputs = driver.find_elements(By.TAG_NAME, 'select')
+    all_text_areas = driver.find_elements(By.TAG_NAME, 'textarea')
+    handle_inputs(all_inputs)
+    handle_selects(all_select_inputs)
+    handle_text_areas(all_text_areas)
+
+
 # Validation Check Map
 validation_type_input_data = {
     'string': add_string_text,
@@ -54,21 +72,6 @@ validation_type_input_data = {
     'confirm': click_checkbox,
 }
 
-# Web Driver Setup
-chrome_options = webdriver.ChromeOptions()
-chrome_options.add_experimental_option("detach", True)
-
-driver = webdriver.Chrome(options=chrome_options)
 selected_url = input("Please enter the URL for testing: \r\n")
-driver.get(selected_url)
+form_filler_main(selected_url)
 
-# Gather all Inputs
-all_inputs = driver.find_elements(By.TAG_NAME, 'input')
-all_select_inputs = driver.find_elements(By.TAG_NAME, 'select')
-all_text_areas = driver.find_elements(By.TAG_NAME, 'textarea')
-
-handle_inputs(all_inputs)
-
-handle_selects(all_select_inputs)
-
-handle_text_areas(all_text_areas)
