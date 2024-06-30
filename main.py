@@ -65,6 +65,7 @@ def form_filler_main(url):
 # Validation Check Map
 validation_type_input_data = {
     'string': add_string_text,
+    'furigana': add_string_text,
     'telephone': add_telephone_text,
     'email': add_email_text,
     'radio': make_radio_selection,
